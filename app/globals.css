@@ -7,3 +7,14 @@ body,
 :root {
   height: 100%;
 }
+
+.animated {
+  @apply
+  transition-all
+  duration-200
+}
+
+.padding-md {
+  @apply
+  px-10 py-4
+}
