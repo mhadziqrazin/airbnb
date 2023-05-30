@@ -9,7 +9,6 @@ interface ThemeProps {
 export const Theme: React.FC<ThemeProps> = ({children}) => {
   return (
     <ThemeProvider
-      enableSystem={false}
       attribute="class"
     >
       {children}

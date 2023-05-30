@@ -16,21 +16,13 @@ export const Navbar = () => {
     return null
   }
 
-  const themeSwitch = () => {
-    if (theme === 'dark') {
-      setTheme('light')
-    } else if (theme === 'light') {
-      setTheme('dark')
-    }
-  }
-
   return (
     <nav className="shadow-sm border-b-[1px] dark:border-b-black flex place-content-between padding-md">
       <p>
         {theme}
       </p>
       <button
-        onClick={() => themeSwitch()}
+        onClick={() => setTheme(theme === 'light' ? 'dark' : 'light')}
         className="
           rounded-full w-16 flex dark:place-content-end
           bg-gray-200 dark:bg-gray-700
