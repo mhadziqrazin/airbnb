@@ -9,7 +9,7 @@ interface ThemeProps {
 export const Theme: React.FC<ThemeProps> = ({children}) => {
   return (
     <ThemeProvider
-      enableSystem={true}
+      enableSystem={false}
       attribute="class"
     >
       {children}
