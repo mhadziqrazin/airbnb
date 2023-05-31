@@ -6,7 +6,7 @@ interface ThemeProps {
   children: React.ReactNode
 }
 
-export const Theme: React.FC<ThemeProps> = ({children}) => {
+const Theme: React.FC<ThemeProps> = ({children}) => {
   return (
     <ThemeProvider
       attribute="class"
@@ -15,3 +15,5 @@ export const Theme: React.FC<ThemeProps> = ({children}) => {
     </ThemeProvider>
   )
 }
+
+export default Theme

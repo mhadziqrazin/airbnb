@@ -14,7 +14,10 @@ body,
   duration-200
 }
 
-.padding-md {
+.pad-x-md {
   @apply
-  px-10 py-4
+  px-4
+  sm:px-2
+  md:px-10
+  xl:px-20
 }
