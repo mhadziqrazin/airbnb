@@ -14,7 +14,8 @@ body,
   duration-200
 }
 
-.padding-md {
+.animated-shadow {
   @apply
-  px-10 py-4
+  transition-shadow
+  duration-200
 }
