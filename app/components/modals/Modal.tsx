@@ -68,7 +68,7 @@ const Modal: React.FC<ModalProps> = ({
               ${visible ? 'opacity-100' : 'opacity-0'}
             `}
           >
-            <div className="translate h-full lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:bg-neutral-800 outline-none focus:outline-none">
+            <div className="translate min:h-full h-fit lg:h-auto md:h-auto border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white dark:bg-neutral-800 outline-none focus:outline-none">
               {/* HEADER */}
               <div className="flex items-center p-6 rouned-t justify-center relative border-b-[1px] dark:border-neutral-700">
                 <div className="text-lg font-semibold">
