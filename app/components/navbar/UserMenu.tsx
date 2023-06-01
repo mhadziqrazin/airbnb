@@ -5,6 +5,7 @@ import Avatar from '../Avatar'
 import { useCallback, useState } from 'react'
 import MenuItem from './MenuItem'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
+import ThemeToggle from './ThemeToggle'
 
 const UserMenu = () => {
   const registerModal = useRegisterModal()
@@ -38,8 +39,15 @@ const UserMenu = () => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
+              <div className="block md:hidden justify-center">
+                <MenuItem>
+                  <div className="flex justify-center">
+                    <ThemeToggle menuItem />
+                  </div>
+                </MenuItem>
+              </div>
               <MenuItem
-                onClick={() => {}}
+                onClick={() => { }}
                 label="Login"
               />
               <MenuItem
