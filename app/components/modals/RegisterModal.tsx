@@ -16,7 +16,7 @@ const RegisterModal = () => {
   const registerModal = useRegisterModal()
   const [loading, setLoading] = useState(false)
 
-  const { register, handleSubmit, formState: { errors } } = useForm<FieldValues>({
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
       name: '',
       email: '',
@@ -28,10 +28,12 @@ const RegisterModal = () => {
     setLoading(true)
 
     try {
-      await axios.post('/api/register', data)
+      await axios.post('/api/auth/register', data)
       registerModal.onClose()
+      toast.success('Registered! You can now login')
+      reset()
     } catch (err) {
-      toast.error('Something went wrong :(')
+      toast.error('Register failed. Try again')
       console.log(err)
     }
 
