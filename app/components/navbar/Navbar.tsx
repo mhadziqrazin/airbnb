@@ -5,8 +5,19 @@ import Logo from "./Logo"
 import Search from "./Search"
 import UserMenu from "./UserMenu"
 import ThemeToggle from "./ThemeToggle"
+import { useEffect, useState } from "react"
 
 const Navbar = () => {
+  const [mounted, setMounted] = useState(false)
+
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  if (!mounted) {
+    return null
+  }
+
   return (
     <nav className="shadow-sm border-b-[1px] dark:border-b-black py-4">
       <Container>
