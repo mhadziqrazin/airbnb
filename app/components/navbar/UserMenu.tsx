@@ -39,7 +39,7 @@ const UserMenu = () => {
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col cursor-pointer">
             <>
-              <div className="flex md:hidden justify-center px-4 py-3 border-b-[1px] dark:border-neutral-700">
+              <div className="flex sm:hidden justify-center px-4 py-3 border-b-[1px] dark:border-neutral-700">
                 <ThemeToggle menuItem />
               </div>
               <MenuItem
