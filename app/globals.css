@@ -8,12 +8,6 @@ body,
   height: 100%;
 }
 
-.animated {
-  @apply
-  transition-all
-  duration-200
-}
-
 .animated-shadow {
   @apply
   transition-shadow
