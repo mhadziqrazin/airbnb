@@ -14,10 +14,8 @@ body,
   duration-200
 }
 
-.pad-x-md {
+.animated-shadow {
   @apply
-  px-4
-  sm:px-2
-  md:px-10
-  xl:px-20
+  transition-shadow
+  duration-200
 }
