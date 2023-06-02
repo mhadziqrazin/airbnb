@@ -81,15 +81,15 @@ const LoginModal = () => {
       <hr className="dark:border-neutral-700" />
       <Button
         outline
-        label="Sign up with Google"
+        label="Sign in with Google"
         icon={FcGoogle}
         onClick={() => { }}
       />
       <Button
         outline
-        label="Sign up with Github"
+        label="Sign in with Github"
         icon={AiFillGithub}
-        onClick={() => { }}
+        onClick={() => signIn('github')}
       />
       <p className="text-center">
         Don&apos;t have an account? <span

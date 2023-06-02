@@ -13,6 +13,7 @@ import toast from "react-hot-toast"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
 import useLoginModal from "@/app/hooks/useLoginModal"
+import { signIn } from "next-auth/react"
 
 const RegisterModal = () => {
   const loginModal = useLoginModal()
@@ -94,7 +95,7 @@ const RegisterModal = () => {
         outline
         label="Sign up with Github"
         icon={AiFillGithub}
-        onClick={() => { }}
+        onClick={() => signIn('github')}
       />
       <p className="text-center">
         Already have an account? <span

@@ -7,17 +7,15 @@ import MenuItem from './MenuItem'
 import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
 import ThemeToggle from './ThemeToggle'
-import { User } from '@prisma/client'
 import { signOut } from 'next-auth/react'
-import { toast } from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { SafeUser } from '@/app/types'
 
 interface UserMenuProps {
-  currentUser?: User | null
+  currentUser?: SafeUser | null
 }
 
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
-  const router = useRouter()
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
   const [isOpen, setIsOpen] = useState(false)
@@ -39,9 +37,9 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           onClick={toggleOpen}
           className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 dark:border-rose-500 dark:text-rose-500 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md animated-shadow"
         >
-          <AiOutlineMenu />
+          <AiOutlineMenu className='sm:ml-1' />
           <div className='hidden md:block'>
-            <Avatar />
+            <Avatar src={currentUser?.image} />
           </div>
         </div>
       </div>
@@ -76,7 +74,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                     label="Airbnb my home"
                   />
                 </div>
-                <hr />
+                <hr className='dark:border-neutral-700'/>
                 <MenuItem
                   onClick={signOut}
                   label="Logout"

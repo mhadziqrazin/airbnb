@@ -6,15 +6,14 @@ import Search from "./Search"
 import UserMenu from "./UserMenu"
 import ThemeToggle from "./ThemeToggle"
 import { useEffect, useState } from "react"
-import { User } from "@prisma/client"
+import { SafeUser } from "@/app/types"
 
 interface NavbarProps {
-  currentUser?: User | null
+  currentUser?: SafeUser | null
 }
 
 const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const [mounted, setMounted] = useState(false)
-  console.log(currentUser)
   useEffect(() => {
     setMounted(true)
   }, [])
