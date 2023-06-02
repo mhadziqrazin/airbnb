@@ -13,8 +13,11 @@ import Input from "../inputs/Input"
 import toast from "react-hot-toast"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
 const LoginModal = () => {
+  const router = useRouter()
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
   const [loading, setLoading] = useState(false)
@@ -29,18 +32,19 @@ const LoginModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true)
 
-    try {
-      await axios.post('/api/auth/register', data)
-      registerModal.onClose()
-      toast.success('Registered! You can now login')
+    const res = await signIn('credentials', {
+      ...data,
+      redirect: false
+    })
+    if (res?.ok) {
+      loginModal.onClose()
+      toast.success('Login successful!')
       reset()
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response?.status === 409) {
-        toast.error(err.response?.data.error)
-      } else {
-        toast.error('Something went wrong. Try again')
-      }
-      console.log(err)
+      router.refresh()
+    } else if (res?.status === 401) {
+      toast.error('Invalid email or password!')
+    } else {
+      toast.error('Something went wrong. Try again')
     }
 
     setLoading(false)
@@ -88,11 +92,14 @@ const LoginModal = () => {
         onClick={() => { }}
       />
       <p className="text-center">
-        Already have an account? <span
-          onClick={registerModal.onClose}
-          className="font-semibold hover:text-rose-500 hover:cursor-pointer transition"
+        Don&apos;t have an account? <span
+          onClick={() => {
+            loginModal.onClose()
+            registerModal.onOpen()
+          }}
+          className="font-semibold text-rose-500 hover:underline hover:cursor-pointer transition"
         >
-          Login
+          Register
         </span>
       </p>
     </div>
@@ -101,7 +108,7 @@ const LoginModal = () => {
   const label = (
     <>
       {!loading ?
-        <>Continue</> : <PulseLoader color="white" size={10} />
+        <>Login</> : <PulseLoader color="white" size={10} />
       }
     </>
   )

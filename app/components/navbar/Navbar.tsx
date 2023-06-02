@@ -6,10 +6,15 @@ import Search from "./Search"
 import UserMenu from "./UserMenu"
 import ThemeToggle from "./ThemeToggle"
 import { useEffect, useState } from "react"
+import { User } from "@prisma/client"
 
-const Navbar = () => {
+interface NavbarProps {
+  currentUser?: User | null
+}
+
+const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   const [mounted, setMounted] = useState(false)
-
+  console.log(currentUser)
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -26,7 +31,7 @@ const Navbar = () => {
           <Search />
           <div className="flex flex-row items-center justify-between gap-4 md:gap-1">
             <ThemeToggle />
-            <UserMenu />
+            <UserMenu currentUser={currentUser} />
           </div>
         </div>
       </Container>

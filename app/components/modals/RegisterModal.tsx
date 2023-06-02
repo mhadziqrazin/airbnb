@@ -12,8 +12,10 @@ import Input from "../inputs/Input"
 import toast from "react-hot-toast"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
+import useLoginModal from "@/app/hooks/useLoginModal"
 
 const RegisterModal = () => {
+  const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
   const [loading, setLoading] = useState(false)
 
@@ -96,8 +98,11 @@ const RegisterModal = () => {
       />
       <p className="text-center">
         Already have an account? <span
-          onClick={registerModal.onClose}
-          className="font-semibold hover:text-rose-500 hover:cursor-pointer transition"
+          onClick={() => {
+            registerModal.onClose()
+            loginModal.onOpen()
+          }}
+          className="font-semibold text-rose-500 hover:underline hover:cursor-pointer transition"
         >
           Login
         </span>
@@ -108,7 +113,7 @@ const RegisterModal = () => {
   const label = (
     <>
       {!loading ?
-        <>Continue</> : <PulseLoader color="white" size={10} />
+        <>Register</> : <PulseLoader color="white" size={10} />
       }
     </>
   )
