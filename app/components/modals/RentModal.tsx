@@ -8,6 +8,9 @@ import Heading from "../texts/Heading"
 import { categories } from "@/app/constants/categories"
 import CategoryInput from "../inputs/CategoryInput"
 import { FieldValues, useForm } from "react-hook-form"
+import CountryInput from "../inputs/CountryInput"
+import Map from "../Map"
+import dynamic from "next/dynamic"
 
 enum STEPS {
   CATEGORY = 0,
@@ -23,7 +26,7 @@ const RentModal = () => {
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(STEPS.CATEGORY)
 
-  const {register, handleSubmit, setValue, watch, formState: {errors}, reset} = useForm<FieldValues>({
+  const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
       category: '',
       location: null,
@@ -38,6 +41,11 @@ const RentModal = () => {
   })
 
   const category = watch('category')
+  const location = watch('location')
+
+  const Map = useMemo(() => dynamic(() => import('../Map'), {
+    ssr: false
+  }), [location])
 
   const setCustomValue = ((id: string, value: any) => {
     setValue(id, value, {
@@ -69,26 +77,52 @@ const RentModal = () => {
     return 'Back'
   }, [step])
 
-  let body = (
-    <div className="flex flex-col gap-8">
-      <Heading
-        title="Which of these best describe your place?"
-        subtitle="Pick a category"
-      />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-        {categories.map((item) => (
-          <div key={item.id} className="col-span-1">
-            <CategoryInput
-              onClick={(category) => {setCustomValue('category', category)}}
-              selected={category === item.label}
-              label={item.label}
-              icon={item.icon}
-            />
+  let body
+
+  switch (step) {
+    case STEPS.CATEGORY:
+      body = (
+        <div className="flex flex-col gap-8">
+          <Heading
+            title="Which of these best describe your property?"
+            subtitle="Pick a category"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
+            {categories.map((item) => (
+              <div key={item.id} className="col-span-1">
+                <CategoryInput
+                  onClick={(category) => setCustomValue('category', category)}
+                  selected={category === item.label}
+                  label={item.label}
+                  icon={item.icon}
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-  )
+        </div>
+      )
+      break
+
+    case STEPS.LOCATION:
+      body = (
+        <div className="flex flex-col gap-8">
+          <Heading
+            title="Where is your property located?"
+            subtitle="Help guests find you!"
+          />
+          <CountryInput
+            onChange={(value) => setCustomValue('location', value)}
+            value={location}
+          />
+          <Map
+            center={location?.latlng}
+          />
+        </div>
+      )
+      break
+  }
+
+
 
   const label = (
     <>
