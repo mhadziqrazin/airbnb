@@ -3,6 +3,7 @@
 import { AiFillGithub } from "react-icons/ai"
 import { FcGoogle } from "react-icons/fc"
 import useRegisterModal from "@/app/hooks/useRegisterModal"
+import useLoginModal from "@/app/hooks/useLoginModal"
 import { useState } from "react"
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import axios from "axios"
@@ -12,17 +13,17 @@ import Input from "../inputs/Input"
 import toast from "react-hot-toast"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
-import useLoginModal from "@/app/hooks/useLoginModal"
 import { signIn } from "next-auth/react"
+import { useRouter } from "next/navigation"
 
-const RegisterModal = () => {
+const LoginModal = () => {
+  const router = useRouter()
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
   const [loading, setLoading] = useState(false)
 
   const { register, handleSubmit, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
-      name: '',
       email: '',
       password: ''
     }
@@ -31,18 +32,19 @@ const RegisterModal = () => {
   const onSubmit: SubmitHandler<FieldValues> = async (data) => {
     setLoading(true)
 
-    try {
-      await axios.post('/api/auth/register', data)
-      registerModal.onClose()
-      toast.success('Registered! You can now login')
+    const res = await signIn('credentials', {
+      ...data,
+      redirect: false
+    })
+    if (res?.ok) {
+      loginModal.onClose()
+      toast.success('Login successful!')
       reset()
-    } catch (err) {
-      if (axios.isAxiosError(err) && err.response?.status === 409) {
-        toast.error(err.response?.data.error)
-      } else {
-        toast.error('Something went wrong. Try again')
-      }
-      console.log(err)
+      router.refresh()
+    } else if (res?.status === 401) {
+      toast.error('Invalid email or password!')
+    } else {
+      toast.error('Something went wrong. Try again')
     }
 
     setLoading(false)
@@ -51,20 +53,12 @@ const RegisterModal = () => {
   const body = (
     <div className="flex flex-col gap-4">
       <Heading
-        title="Welcome to AirbnbHajik"
-        subtitle="Create an account"
+        title="Welcome back!"
+        subtitle="Login to your account"
       />
       <Input
         id="email"
         label="Email"
-        disabled={loading}
-        register={register}
-        errors={errors}
-        required
-      />
-      <Input
-        id="name"
-        label="Name"
         disabled={loading}
         register={register}
         errors={errors}
@@ -87,25 +81,25 @@ const RegisterModal = () => {
       <hr className="dark:border-neutral-700" />
       <Button
         outline
-        label="Sign up with Google"
+        label="Sign in with Google"
         icon={FcGoogle}
         onClick={() => signIn('google')}
       />
       <Button
         outline
-        label="Sign up with Github"
+        label="Sign in with Github"
         icon={AiFillGithub}
         onClick={() => signIn('github')}
       />
       <p className="text-center">
-        Already have an account? <span
+        Don&apos;t have an account? <span
           onClick={() => {
-            registerModal.onClose()
-            loginModal.onOpen()
+            loginModal.onClose()
+            registerModal.onOpen()
           }}
           className="font-semibold text-rose-500 hover:underline hover:cursor-pointer transition"
         >
-          Login
+          Register
         </span>
       </p>
     </div>
@@ -114,7 +108,7 @@ const RegisterModal = () => {
   const label = (
     <>
       {!loading ?
-        <>Register</> : <PulseLoader color="white" size={10} />
+        <>Login</> : <PulseLoader color="white" size={10} />
       }
     </>
   )
@@ -122,10 +116,10 @@ const RegisterModal = () => {
   return (
     <Modal
       disabled={loading}
-      isOpen={registerModal.isOpen}
-      title="Register"
+      isOpen={loginModal.isOpen}
+      title="Login"
       actionLabel={label}
-      onClose={registerModal.onClose}
+      onClose={loginModal.onClose}
       onSubmit={handleSubmit(onSubmit)}
       body={body}
       footer={footer}
@@ -133,4 +127,4 @@ const RegisterModal = () => {
   )
 }
 
-export default RegisterModal
+export default LoginModal

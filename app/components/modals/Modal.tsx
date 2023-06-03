@@ -11,10 +11,10 @@ interface ModalProps {
   title?: string
   body?: React.ReactElement
   footer?: React.ReactElement
-  actionLabel: string
+  actionLabel: React.ReactNode
   disabled?: boolean
   secondaryAction?: () => void
-  secondaryActionLabel?: string
+  secondaryActionLabel?: React.ReactNode
 }
 
 const Modal: React.FC<ModalProps> = ({
