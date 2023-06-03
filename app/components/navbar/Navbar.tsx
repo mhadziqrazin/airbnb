@@ -7,6 +7,7 @@ import UserMenu from "./UserMenu"
 import ThemeToggle from "./ThemeToggle"
 import { useEffect, useState } from "react"
 import { SafeUser } from "@/app/types"
+import Categories from "./Categories"
 
 interface NavbarProps {
   currentUser?: SafeUser | null
@@ -23,17 +24,20 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   }
 
   return (
-    <nav className="shadow-sm border-b-[1px] dark:border-b-black py-4">
-      <Container>
-        <div className="flex flex-row items-center justify-between gap-3">
-          <Logo />
-          <Search />
-          <div className="flex flex-row items-center justify-between gap-4 md:gap-1">
-            <ThemeToggle />
-            <UserMenu currentUser={currentUser} />
+    <nav className="shadow-sm">
+      <div className="border-b-[1px] dark:border-black py-4">
+        <Container>
+          <div className="flex flex-row items-center justify-between gap-3">
+            <Logo />
+            <Search />
+            <div className="flex flex-row items-center justify-between gap-4 md:gap-1">
+              <ThemeToggle />
+              <UserMenu currentUser={currentUser} />
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </div>
+      <Categories />
     </nav>
   )
 }
