@@ -9,7 +9,6 @@ import { categories } from "@/app/constants/categories"
 import CategoryInput from "../inputs/CategoryInput"
 import { FieldValues, useForm } from "react-hook-form"
 import CountryInput from "../inputs/CountryInput"
-import Map from "../Map"
 import dynamic from "next/dynamic"
 
 enum STEPS {
@@ -120,6 +119,16 @@ const RentModal = () => {
         </div>
       )
       break
+
+    case STEPS.INFO:
+      body = (
+        <div className="flex flex-col gap-8">
+          <Heading
+            title="Share some basics about your property"
+            subtitle="What amenities do you have?"
+          />
+        </div>
+      )
   }
 
 

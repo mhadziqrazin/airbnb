@@ -13,7 +13,7 @@ import React from "react"
 delete L.Icon.Default.prototype._getIconUrl
 L.Icon.Default.mergeOptions({
   iconUrl: markerIcon.src,
-  iconRetineUrl: markerIcon2x.src,
+  iconRetinaUrl: markerIcon2x.src,
   shadowUrl: markerShadow.src
 })
 
@@ -30,8 +30,8 @@ const Map: React.FC<MapProps> = ({ center }) => {
       className="h-[35vh] rounded-lg"
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
       {center && (
         <Marker
