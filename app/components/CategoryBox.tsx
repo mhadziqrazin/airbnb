@@ -40,10 +40,10 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
   }, [label, params, router])
 
   return (
-    <div
+    <button
       onClick={handleClick}
       className={`
-        flex flex-col items-center gap-2 p-3 border-b-2 transition cursor-pointer
+        flex flex-col items-center gap-2 p-3 border-b-2 transition
         hover:text-neutral-800 dark:hover:text-neutral-300
         ${selected ? 'border-neutral-800 dark:border-neutral-300' : 'border-transparent'}
         ${selected ? 'text-neutral-800 dark:text-neutral-300' : 'text-neutral-500'}
@@ -53,7 +53,7 @@ const CategoryBox: React.FC<CategoryBoxProps> = ({
       <p className="font-medium text-sm">
         {label}
       </p>
-    </div>
+    </button>
   )
 }
 

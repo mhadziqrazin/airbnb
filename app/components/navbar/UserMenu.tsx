@@ -36,13 +36,13 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
+        <button
           onClick={onRent}
           className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition"
         >
           Airbnb your home
-        </div>
-        <div
+        </button>
+        <button
           onClick={toggleOpen}
           className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 dark:border-rose-500 dark:text-rose-500 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md animated-shadow"
         >
@@ -50,7 +50,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
           <div className='hidden md:block'>
             <Avatar src={currentUser?.image} />
           </div>
-        </div>
+        </button>
       </div>
 
       {isOpen && (

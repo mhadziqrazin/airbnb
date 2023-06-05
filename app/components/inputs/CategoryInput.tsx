@@ -13,10 +13,10 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
   icon: Icon, label, selected, onClick
 }) => {
   return (
-    <div
+    <button
       onClick={() => onClick(label)}
       className={`
-        rounded-xl border-2 p-4 flex flex-rows items-center gap-3 hover:border-black dark:hover:border-white transition cursor-pointer
+        w-full rounded-xl border-2 p-4 flex flex-rows items-center gap-3 hover:border-black dark:hover:border-white transition cursor-pointer
         ${selected ? 'border-black dark:border-white' : 'border-neutral-200 dark:border-neutral-700'}
       `}
     >
@@ -24,7 +24,7 @@ const CategoryInput: React.FC<CategoryInputProps> = ({
       <p className="font-semibold">
         {label}
       </p>
-    </div>
+    </button>
   )
 }
 
