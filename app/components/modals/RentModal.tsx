@@ -10,6 +10,7 @@ import CategoryStep from "../rentModals/CategoryStep"
 import LocationStep from "../rentModals/LocationStep"
 import InfoStep from "../rentModals/InfoStep"
 import ImageStep from "../rentModals/ImageStep"
+import DescriptionStep from "../rentModals/DescriptionStep"
 
 enum STEPS {
   CATEGORY = 0,
@@ -118,6 +119,16 @@ const RentModal = () => {
         <ImageStep
           imageSrc={imageSrc}
           setCustomValue={setCustomValue}
+        />
+      )
+      break
+
+    case STEPS.DESCRIPTION:
+      body = (
+        <DescriptionStep
+          disabled={loading}
+          register={register}
+          errors={errors}
         />
       )
       break
