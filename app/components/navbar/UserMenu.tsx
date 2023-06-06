@@ -8,7 +8,6 @@ import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
 import ThemeToggle from './ThemeToggle'
 import { signOut } from 'next-auth/react'
-import { useRouter } from 'next/navigation'
 import { SafeUser } from '@/app/types'
 import useRentModal from '@/app/hooks/useRentModal'
 
