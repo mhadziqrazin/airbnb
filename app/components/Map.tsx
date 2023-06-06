@@ -17,7 +17,7 @@ L.Icon.Default.mergeOptions({
   shadowUrl: markerShadow.src
 })
 
-interface MapProps {
+export interface MapProps {
   center?: number[]
 }
 

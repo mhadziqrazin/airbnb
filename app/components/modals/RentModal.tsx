@@ -4,13 +4,8 @@ import useRentModal from "@/app/hooks/useRentModal"
 import Modal from "./Modal"
 import { useMemo, useState } from "react"
 import { PulseLoader } from "react-spinners"
-import Heading from "../texts/Heading"
-import { categories } from "@/app/constants/categories"
-import CategoryInput from "../inputs/CategoryInput"
 import { FieldValues, useForm } from "react-hook-form"
-import CountryInput from "../inputs/CountryInput"
 import dynamic from "next/dynamic"
-import Counter from "../inputs/Counter"
 import CategoryStep from "../rentModals/CategoryStep"
 import LocationStep from "../rentModals/LocationStep"
 import InfoStep from "../rentModals/InfoStep"
@@ -100,6 +95,7 @@ const RentModal = () => {
         <LocationStep
           setCustomValue={setCustomValue}
           location={location}
+          map={Map}
         />
       )
       break

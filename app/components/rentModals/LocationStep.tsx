@@ -1,20 +1,17 @@
-import { useMemo } from "react"
+import { ComponentType } from "react"
 import CountryInput, { CountryInputValue } from "../inputs/CountryInput"
 import Heading from "../texts/Heading"
-import dynamic from "next/dynamic"
+import { MapProps } from "../Map"
 
 interface LocationStepProps {
   setCustomValue: (id: string, value: any) => void
   location: CountryInputValue | undefined
+  map: ComponentType<MapProps>
 }
 
 const LocationStep: React.FC<LocationStepProps> = ({
-  setCustomValue, location
+  setCustomValue, location, map: Map
 }) => {
-  const Map = useMemo(() => dynamic(() => import('../Map'), {
-    ssr: false
-  }), [location])
-
   return (
     <div className="flex flex-col gap-8">
       <Heading
