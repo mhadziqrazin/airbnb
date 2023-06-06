@@ -4,13 +4,17 @@ import useRentModal from "@/app/hooks/useRentModal"
 import Modal from "./Modal"
 import { useMemo, useState } from "react"
 import { PulseLoader } from "react-spinners"
-import { FieldValues, useForm } from "react-hook-form"
+import { FieldValues, SubmitHandler, useForm } from "react-hook-form"
 import dynamic from "next/dynamic"
 import CategoryStep from "../rentModals/CategoryStep"
 import LocationStep from "../rentModals/LocationStep"
 import InfoStep from "../rentModals/InfoStep"
 import ImageStep from "../rentModals/ImageStep"
 import DescriptionStep from "../rentModals/DescriptionStep"
+import PriceStep from "../rentModals/PriceStep"
+import axios from "axios"
+import { toast } from "react-hot-toast"
+import { useRouter } from "next/navigation"
 
 enum STEPS {
   CATEGORY = 0,
@@ -25,6 +29,7 @@ const RentModal = () => {
   const rentModal = useRentModal()
   const [loading, setLoading] = useState(false)
   const [step, setStep] = useState(STEPS.CATEGORY)
+  const router = useRouter()
 
   const { register, handleSubmit, setValue, watch, formState: { errors }, reset } = useForm<FieldValues>({
     defaultValues: {
@@ -65,6 +70,28 @@ const RentModal = () => {
 
   const onNext = () => {
     setStep((value) => value + 1)
+  }
+
+  const onSubmit: SubmitHandler<FieldValues> = async (data) => {
+    if (step !== STEPS.PRICE) {
+      return onNext()
+    }
+
+    setLoading(true)
+
+    try {
+      await axios.post('/api/listings', data)
+      toast.success('Listing created!')
+      rentModal.onClose()
+      router.refresh()
+      reset()
+      setStep(STEPS.CATEGORY)
+    } catch (err) {
+      toast.error('Something went wrong. Try again')
+      console.log(err)
+    }
+
+    setLoading(false)
   }
 
   const actionLabel = useMemo(() => {
@@ -132,14 +159,22 @@ const RentModal = () => {
         />
       )
       break
+
+    case STEPS.PRICE:
+      body = (
+        <PriceStep
+          disabled={loading}
+          register={register}
+          errors={errors}
+        />
+      )
+      break
   }
-
-
 
   const label = (
     <>
       {!loading ?
-        <>Submit</> : <PulseLoader color="white" size={10} />
+        actionLabel : <PulseLoader color="white" size={10} />
       }
     </>
   )
@@ -148,10 +183,10 @@ const RentModal = () => {
     <Modal
       isOpen={rentModal.isOpen}
       title="Airbnb your home!"
-      actionLabel={actionLabel}
+      actionLabel={label}
       secondaryActionLabel={secondaryActionLabel}
       onClose={rentModal.onClose}
-      onSubmit={onNext}
+      onSubmit={handleSubmit(onSubmit)}
       secondaryAction={step === STEPS.CATEGORY ? undefined : onBack}
       body={body}
     />
