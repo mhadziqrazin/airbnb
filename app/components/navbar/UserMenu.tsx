@@ -53,7 +53,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm z-10">
           <div className="flex flex-col">
             <div className="flex sm:hidden justify-center px-4 py-3 border-b-[1px] dark:border-neutral-700">
               <ThemeToggle menuItem />
