@@ -9,6 +9,7 @@ import dynamic from "next/dynamic"
 import CategoryStep from "../rentModals/CategoryStep"
 import LocationStep from "../rentModals/LocationStep"
 import InfoStep from "../rentModals/InfoStep"
+import ImageStep from "../rentModals/ImageStep"
 
 enum STEPS {
   CATEGORY = 0,
@@ -109,6 +110,13 @@ const RentModal = () => {
           setCustomValue={setCustomValue}
         />
       )
+      break
+
+    case STEPS.IMAGES:
+      body = (
+        <ImageStep/>
+      )
+      break
   }
 
 
