@@ -11,6 +11,9 @@ import { FieldValues, useForm } from "react-hook-form"
 import CountryInput from "../inputs/CountryInput"
 import dynamic from "next/dynamic"
 import Counter from "../inputs/Counter"
+import CategoryStep from "../rentModals/CategoryStep"
+import LocationStep from "../rentModals/LocationStep"
+import InfoStep from "../rentModals/InfoStep"
 
 enum STEPS {
   CATEGORY = 0,
@@ -85,73 +88,30 @@ const RentModal = () => {
   switch (step) {
     case STEPS.CATEGORY:
       body = (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Which of these best describe your property?"
-            subtitle="Pick a category"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto">
-            {categories.map((item) => (
-              <div key={item.id} className="col-span-1">
-                <CategoryInput
-                  onClick={(category) => setCustomValue('category', category)}
-                  selected={category === item.label}
-                  label={item.label}
-                  icon={item.icon}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <CategoryStep
+          category={category}
+          setCustomValue={setCustomValue}
+        />
       )
       break
 
     case STEPS.LOCATION:
       body = (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Where is your property located?"
-            subtitle="Help guests find you!"
-          />
-          <CountryInput
-            onChange={(value) => setCustomValue('location', value)}
-            value={location}
-          />
-          <Map
-            center={location?.latlng}
-          />
-        </div>
+        <LocationStep
+          setCustomValue={setCustomValue}
+          location={location}
+        />
       )
       break
 
     case STEPS.INFO:
       body = (
-        <div className="flex flex-col gap-8">
-          <Heading
-            title="Share some basics about your property"
-            subtitle="What amenities do you have?"
-          />
-          <Counter
-            title="Guests"
-            subtitle="How many guests do you allow?"
-            value={guestCount}
-            onChange={(value) => setCustomValue('guestCount', value)}
-          />
-          <hr className="dark:border-neutral-700" />
-          <Counter
-            title="Rooms"
-            subtitle="How many rooms do you have?"
-            value={roomCount}
-            onChange={(value) => setCustomValue('roomCount', value)}
-          />
-          <hr className="dark:border-neutral-700" />
-          <Counter
-            title="Bathroom"
-            subtitle="How many bathrooms do you have?"
-            value={bathroomCount}
-            onChange={(value) => setCustomValue('bathroomCount', value)}
-          />
-        </div>
+        <InfoStep
+          guestCount={guestCount}
+          roomCount={roomCount}
+          bathroomCount={bathroomCount}
+          setCustomValue={setCustomValue}
+        />
       )
   }
 
