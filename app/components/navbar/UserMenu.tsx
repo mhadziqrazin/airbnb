@@ -10,6 +10,7 @@ import ThemeToggle from './ThemeToggle'
 import { signOut } from 'next-auth/react'
 import { useRouter } from 'next/navigation'
 import { SafeUser } from '@/app/types'
+import useRentModal from '@/app/hooks/useRentModal'
 
 interface UserMenuProps {
   currentUser?: SafeUser | null
@@ -18,35 +19,43 @@ interface UserMenuProps {
 const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
   const loginModal = useLoginModal()
   const registerModal = useRegisterModal()
+  const rentModal = useRentModal()
   const [isOpen, setIsOpen] = useState(false)
 
   const toggleOpen = useCallback(() => {
     setIsOpen((value) => !value)
   }, [])
 
+  const onRent = useCallback(() => {
+    if (!currentUser) {
+      return loginModal.onOpen()
+    }
+    rentModal.onOpen()
+  }, [currentUser, loginModal])
+
   return (
     <div className="relative">
       <div className="flex flex-row items-center gap-3">
-        <div
-          onClick={() => { }}
-          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 cursor-pointer transition"
+        <button
+          onClick={onRent}
+          className="hidden md:block text-sm font-semibold py-3 px-4 rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-800 transition"
         >
           Airbnb your home
-        </div>
-        <div
+        </button>
+        <button
           onClick={toggleOpen}
-          className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 dark:border-rose-500 dark:text-rose-500 flex flex-row items-center gap-3 rounded-full cursor-pointer hover:shadow-md animated-shadow"
+          className="p-4 md:py-1 md:px-2 border-[1px] border-neutral-200 dark:border-rose-500 dark:text-rose-500 flex flex-row items-center gap-3 rounded-full hover:shadow-md animated-shadow"
         >
-          <AiOutlineMenu className='sm:ml-1' />
+          <AiOutlineMenu className='md:ml-1' />
           <div className='hidden md:block'>
             <Avatar src={currentUser?.image} />
           </div>
-        </div>
+        </button>
       </div>
 
       {isOpen && (
         <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm">
-          <div className="flex flex-col cursor-pointer">
+          <div className="flex flex-col">
             <div className="flex sm:hidden justify-center px-4 py-3 border-b-[1px] dark:border-neutral-700">
               <ThemeToggle menuItem />
             </div>
@@ -70,7 +79,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
                 />
                 <div className="block md:hidden">
                   <MenuItem
-                    onClick={() => { }}
+                    onClick={rentModal.onOpen}
                     label="Airbnb my home"
                   />
                 </div>
