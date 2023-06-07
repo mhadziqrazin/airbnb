@@ -1,6 +1,6 @@
 import useFavorite from "@/app/hooks/useFavorite"
 import { SafeUser } from "@/app/types"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
 import { AiFillHeart, AiOutlineHeart } from "react-icons/ai"
 
@@ -14,6 +14,10 @@ const HeartButton: React.FC<HeartButtonProps> = ({
 }) => {
   const { hasFavorited, toggleFavorite } = useFavorite({ listingId, currentUser })
   const [favorited, setFavorited] = useState(hasFavorited)
+
+  useEffect(() => {
+    setFavorited(hasFavorited)
+  }, [hasFavorited])
 
   const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
     try {

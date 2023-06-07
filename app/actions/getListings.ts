@@ -6,7 +6,10 @@ export default async function getListings() {
     const listings = await prisma.listing.findMany({
       orderBy: { createdAt: 'desc' }
     })
-    return listings
+    return listings.map((listing) => ({
+      ...listing,
+      createdAt: listing.createdAt.toISOString()
+    }))
   } catch (err) {
     toast.error("Something went wrong :(")
     console.log(err)
