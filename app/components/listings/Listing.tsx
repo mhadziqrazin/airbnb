@@ -4,6 +4,7 @@ import { Reservation } from "@prisma/client"
 import { useMemo } from "react"
 import Container from "../container/Container"
 import ListingHead from "./ListingHead"
+import ListingInfo from "./ListingInfo"
 
 interface ListingProps {
   listing: SafeListing & {
@@ -31,6 +32,17 @@ const Listing: React.FC<ListingProps> = ({
             locationValue={listing.locationValue}
             currentUser={currentUser}
           />
+          <div className="grid grid-cols-1 md:grid-cols-7 md:gap-10 mt-6">
+            <ListingInfo
+              user={listing.user}
+              category={category}
+              description={listing.description}
+              roomCount={listing.roomCount}
+              guestCount={listing.guestCount}
+              bathroomCount={listing.bathroomCount}
+              locationValue={listing.locationValue}
+            />
+          </div>
         </div>
       </div>
     </Container>
