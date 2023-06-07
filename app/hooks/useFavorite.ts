@@ -32,30 +32,33 @@ const useFavorite = (
     }
 
     try {
+      let request 
       if (!hasFavorited) {
-        await toast.promise(
-          axios.post(`/api/favorites/${listingId}`)
-          , {
-            loading: 'Adding...',
-            success: 'Added to favorites!',
-            error: 'Something went wrong. Try again'
-          }
-        )
+        // await toast.promise(
+          await axios.post(`/api/favorites/${listingId}`)
+        //   , {
+        //     loading: 'Adding...',
+        //     success: 'Added to favorites!',
+        //     error: 'Something went wrong. Try again'
+        //   }
+        // )
         // toast.success('Added to favorites!')
       } else {
-        await toast.promise(
-          axios.delete(`/api/favorites/${listingId}`)
-          , {
-            loading: 'Removing...',
-            success: 'Removed from favorites!',
-            error: 'Something went wrong. Try again'
-          }
-        )
+        // await toast.promise(
+          await axios.delete(`/api/favorites/${listingId}`)
+        //   , {
+        //     loading: 'Removing...',
+        //     success: 'Removed from favorites!',
+        //     error: 'Something went wrong. Try again'
+        //   }
+        // )
         // toast.success('Removed from favorites!')
       }
 
       router.refresh()
-    } catch (err) { }
+    } catch (err) {
+      throw new Error()
+    }
   }, [currentUser, hasFavorited, listingId, loginModal, router])
 
   return {
