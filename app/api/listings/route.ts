@@ -22,6 +22,10 @@ export async function POST(request: Request) {
     description
   } = body
 
+  if (category === '' || imageSrc === '') {
+    return NextResponse.json({ error: 'Please check all your inputs' }, { status: 409 })
+  }
+
   const listing = await prisma.listing.create({
     data: {
       title,
