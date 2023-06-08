@@ -78,16 +78,19 @@ const RentModal = () => {
     }
 
     setLoading(true)
-
     try {
-      await axios.post('/api/listings', data)
+      const res = await axios.post('/api/listings', data)
       toast.success('Listing created!')
       rentModal.onClose()
       router.refresh()
       reset()
       setStep(STEPS.CATEGORY)
     } catch (err) {
-      toast.error('Something went wrong. Try again')
+      if (axios.isAxiosError(err) && err.response?.status === 409) {
+        toast.error(err.response?.data.error)
+      } else {
+        toast.error('Something went wrong. Check all fields and try again')
+      }
       console.log(err)
     }
 

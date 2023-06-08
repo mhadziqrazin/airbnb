@@ -80,14 +80,12 @@ const ListingCard: React.FC<ListingCardProps> = ({
         <p className="font-light text-neutral-500 dark:text-neutral-400">
           {reservationDate || data.category}
         </p>
-        <div className="flex flex-row items-center gap-1">
-          <p className="font-semibold">
-            $ {price}
-          </p>
+        <p className="font-semibold">
+          $ {price}
           {!reservation && (
-            <p className="font-light">/ night</p>
+            <span className="font-light text-neutral-600 dark:text-neutral-300"> / night</span>
           )}
-        </div>
+        </p>
         {onAction && actionLabel && (
           <Button
             disabled={disabled}

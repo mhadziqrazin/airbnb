@@ -24,14 +24,16 @@ export default async function RootLayout({
 
   return (
     <html lang="en">
-      <body className={font.className}>
+      <body className={`${font.className} dark:bg-[#121212]`}>
         <Theme>
           <ToasterProvider />
           <RegisterModal />
           <LoginModal />
           <RentModal />
-          <Navbar currentUser={currentUser}/>
-          {children}
+          <div>
+            <Navbar currentUser={currentUser} />
+            {children}
+          </div>
         </Theme>
       </body>
     </html>
