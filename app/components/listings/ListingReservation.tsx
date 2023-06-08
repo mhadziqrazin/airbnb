@@ -1,7 +1,9 @@
-import { Range } from "react-date-range"
+import { DateRange, Range } from "react-date-range"
 import Calendar from "../inputs/Calendar"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
+import "react-date-range/dist/styles.css"
+import "react-date-range/dist/theme/default.css"
 
 interface ListingReservationProps {
   price: number
@@ -37,13 +39,11 @@ const ListingReservation: React.FC<ListingReservationProps> = ({
         </p>
       </div>
       <hr className="dark:border-neutral-700" />
-      <div className="overflow-x-auto bg-white">
-        <Calendar
-          value={dateRange}
-          disabledDates={disabledDates}
-          onChange={(value) => onChangeDate(value.selection)}
-        />
-      </div>
+      <Calendar
+        value={dateRange}
+        disabledDates={disabledDates}
+        onChange={(value) => onChangeDate(value.selection)}
+      />
       <div className="p-4">
         <Button
           disabled={disabled}
