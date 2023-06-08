@@ -8,6 +8,7 @@ import useRegisterModal from '@/app/hooks/useRegisterModal'
 import useLoginModal from '@/app/hooks/useLoginModal'
 import ThemeToggle from './ThemeToggle'
 import { signOut } from 'next-auth/react'
+import { useRouter } from 'next/navigation'
 import { SafeUser } from '@/app/types'
 import useRentModal from '@/app/hooks/useRentModal'
 
@@ -53,7 +54,7 @@ const UserMenu: React.FC<UserMenuProps> = ({ currentUser }) => {
       </div>
 
       {isOpen && (
-        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm z-10">
+        <div className="absolute rounded-xl shadow-md w-[40vw] md:w-3/4 bg-white dark:bg-neutral-800 overflow-hidden right-0 top-12 text-sm">
           <div className="flex flex-col">
             <div className="flex sm:hidden justify-center px-4 py-3 border-b-[1px] dark:border-neutral-700">
               <ThemeToggle menuItem />
