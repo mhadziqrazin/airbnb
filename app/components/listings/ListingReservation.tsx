@@ -1,4 +1,4 @@
-import { DateRange, Range } from "react-date-range"
+import { Range } from "react-date-range"
 import Calendar from "../inputs/Calendar"
 import Button from "../buttons/Button"
 import { PulseLoader } from "react-spinners"
