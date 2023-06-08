@@ -1,8 +1,7 @@
 'use client'
 
 import { categories } from "@/app/constants/categories"
-import { SafeListing, SafeUser } from "@/app/types"
-import { Reservation } from "@prisma/client"
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types"
 import { useCallback, useEffect, useMemo, useState } from "react"
 import Container from "../container/Container"
 import ListingHead from "./ListingHead"
@@ -25,7 +24,7 @@ interface ListingProps {
   listing: SafeListing & {
     user: SafeUser
   }
-  reservations?: Reservation[]
+  reservations?: SafeReservation[]
   currentUser?: SafeUser | null
 }
 
@@ -67,8 +66,7 @@ const Listing: React.FC<ListingProps> = ({
         totalPrice,
         startDate: dateRange.startDate,
         endDate: dateRange.endDate,
-        listingId: listing.id,
-        userId: currentUser.id
+        listingId: listing.id
       })
       toast.success('Listing reserved!')
       router.refresh()
