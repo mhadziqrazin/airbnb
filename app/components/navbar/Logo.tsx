@@ -8,22 +8,34 @@ const Logo = () => {
 
   return (
     <>
-      <Image
-        alt='Logo'
+      <div
         onClick={() => router.push('/')}
-        className="hidden md:block cursor-pointer"
-        height={"100"}
-        width={"100"}
-        src={"/images/logo.png"}
+        className="hidden md:flex flex-col items-center gap-2 cursor-pointer"
+      >
+        <Image
+          alt='Logo'
+          height={"100"}
+          width={"100"}
+          src={"/images/logo.png"}
         />
-      <Image
-        alt='Logo'
+        <p className="text-sm font-bold">
+          hajik
+        </p>
+      </div>
+      <div
         onClick={() => router.push('/')}
-        className="block md:hidden cursor-pointer"
-        height={"30"}
-        width={"30"}
-        src={"/images/logo_sm.png"}
-      />
+        className="flex md:hidden flex-col items-center gap-2 cursor-pointer"
+      >
+        <Image
+          alt='Logo'
+          height={"30"}
+          width={"30"}
+          src={"/images/logo_sm.png"}
+        />
+        <p className="text-sm font-bold">
+          hajik
+        </p>
+      </div>
     </>
   )
 }
