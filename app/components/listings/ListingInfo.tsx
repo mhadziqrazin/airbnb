@@ -4,6 +4,7 @@ import { IconType } from "react-icons"
 import Avatar from "../Avatar"
 import ListingCategory from "./ListingCategory"
 import dynamic from "next/dynamic"
+import Map from "../Map"
 
 interface ListingInfoProps {
   user: SafeUser
@@ -25,9 +26,10 @@ const ListingInfo: React.FC<ListingInfoProps> = ({
   const { getByValue } = useCountries()
 
   const coordinates = getByValue(locationValue)?.latlng
-  const Map = dynamic(() => import('../Map'), {
-    ssr: false
-  })
+  
+  // const Map = dynamic(() => import('../Map'), {
+  //   ssr: false
+  // })
 
   return (
     <div className="col-span-4 flex flex-col gap-8">

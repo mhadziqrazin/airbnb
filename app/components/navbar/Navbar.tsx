@@ -24,8 +24,8 @@ const Navbar: React.FC<NavbarProps> = ({ currentUser }) => {
   }
 
   return (
-    <nav className="shadow-sm sticky top-0 z-10 bg-white dark:bg-neutral-950">
-      <div className="border-b-[1px] dark:border-black py-4">
+    <nav className="shadow-sm sticky top-0 z-50 bg-white dark:bg-[#121212]">
+      <div className="border-b-[1px] dark:border-neutral-700 py-4">
         <Container>
           <div className="flex flex-row items-center justify-between gap-3">
             <Logo />
