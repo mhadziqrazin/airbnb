@@ -18,7 +18,7 @@ const Listing: React.FC<ListingProps> = ({
   listing, reservation, currentUser
 }) => {
   const category = useMemo(() => {
-    return categories.find((item) => listing.category)
+    return categories.find((item) => listing.category === item.label)
   }, [listing.category])
 
   return (
