@@ -1,18 +1,18 @@
 'use client'
 
 import useCountries from "@/app/hooks/useCountries"
-import { SafeListing, SafeUser } from "@/app/types"
-import { Reservation } from "@prisma/client"
+import { SafeListing, SafeReservation, SafeUser } from "@/app/types"
 import { format } from "date-fns"
 import Image from "next/image"
 import { useRouter } from "next/navigation"
 import { useCallback, useMemo } from "react"
 import HeartButton from "../buttons/HeartButton"
 import Button from "../buttons/Button"
+import { PulseLoader } from "react-spinners"
 
 interface ListingCardProps {
   data: SafeListing
-  reservation?: Reservation
+  reservation?: SafeReservation
   onAction?: (id: string) => void
   disabled?: boolean
   actionLabel?: string
@@ -54,6 +54,15 @@ const ListingCard: React.FC<ListingCardProps> = ({
     return `${format(start, 'PP')} - ${format(end, 'PP')}`
   }, [reservation])
 
+  const label = (
+    <>
+      {!disabled ?
+        <>{actionLabel}</> : <PulseLoader color="white" size={8} />
+      }
+    </>
+  )
+
+
   return (
     <div
       onClick={() => router.push(`/listings/${data.id}`)}
@@ -90,7 +99,7 @@ const ListingCard: React.FC<ListingCardProps> = ({
           <Button
             disabled={disabled}
             small
-            label={actionLabel}
+            label={label}
             onClick={handleCancel}
           />
         )}
