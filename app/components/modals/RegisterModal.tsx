@@ -35,6 +35,7 @@ const RegisterModal = () => {
       await axios.post('/api/auth/register', data)
       registerModal.onClose()
       toast.success('Registered! You can now login')
+      loginModal.onOpen()
       reset()
     } catch (err) {
       if (axios.isAxiosError(err) && err.response?.status === 409) {

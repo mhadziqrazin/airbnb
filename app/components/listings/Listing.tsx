@@ -70,6 +70,7 @@ const Listing: React.FC<ListingProps> = ({
       })
       toast.success('Listing reserved!')
       router.refresh()
+      router.push('/trips')
     } catch (err) {
       toast.error('Reservation failed.')
     }
@@ -91,7 +92,7 @@ const Listing: React.FC<ListingProps> = ({
   
   return (
     <Container>
-      <div className="max-w-screen-lg mx-auto pt-6 pb-12">
+      <div className="max-w-screen-lg mx-auto">
         <div className="flex flex-col gap-6">
           <ListingHead
             id={listing.id}
