@@ -70,6 +70,7 @@ const Listing: React.FC<ListingProps> = ({
       })
       toast.success('Listing reserved!')
       router.refresh()
+      router.push('/trips')
     } catch (err) {
       toast.error('Reservation failed.')
     }
