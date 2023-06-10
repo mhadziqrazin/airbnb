@@ -94,6 +94,6 @@ export const categories = [
     id: '15',
     label: 'Lux',
     icon: IoDiamond,
-    description: 'This property is in luxurious!'
+    description: 'This property is luxurious!'
   },
 ]
