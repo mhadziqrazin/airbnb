@@ -1,4 +1,5 @@
 import useFavorite from "@/app/hooks/useFavorite"
+import useLoginModal from "@/app/hooks/useLoginModal"
 import { SafeUser } from "@/app/types"
 import { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
@@ -14,12 +15,16 @@ const HeartButton: React.FC<HeartButtonProps> = ({
 }) => {
   const { hasFavorited, toggleFavorite } = useFavorite({ listingId, currentUser })
   const [favorited, setFavorited] = useState(hasFavorited)
+  const loginModal = useLoginModal()
 
   useEffect(() => {
     setFavorited(hasFavorited)
   }, [hasFavorited])
 
   const handleFavorite = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    if (!currentUser) {
+      return loginModal.onOpen()
+    }
     try {
       setFavorited((value) => !value)
       await toggleFavorite(e)
